@@ -116,7 +116,10 @@ const Room: NextPage = ({ room: { id: room_id }, user: { id: user_id } }: Props,
             <div className="flex flex-row justify-center min-h-screen bg-gray-50">
                 <div className="basis-11/12 flex flex-col max-w-md text-gray-600 my-auto  pb-28">
                     <div className="flex flex-col justify-center">
-                        <div className='hidden bg-red-400 bg-green-400 bg-yellow-400'></div>
+                        <div className='hidden bg-red-400'></div>
+                        <div className='hidden bg-green-400'></div>
+                        <div className='hidden bg-yellow-400'></div>
+
                         <div className={`${colour ? `bg-${colour}-400` : 'bg-gray-200'} flex flex-col justify-center h-[36rem] max-h-[70vh] w-full rounded-lg`}>
                             <div className=''>
                                 <div className=' text-center px-10 text-white text-xl font-medium'>
