@@ -81,7 +81,7 @@ const RoomCreate: NextPage = () => {
                             <ol className=" list-decimal">
                                 <li>Come up with a name for your class. For the purposes of this example we will go with &apos;stargazing_101&apos;.</li>
                                 <li>Fill out the input area by typing &apos;stargazing_101&apos; then click the create room button below.</li>
-                                <li>Send your students to https://cups.erudiolabs.com/room/stargazing_101 and ask them to let you know how they are doing while the class is in progress.</li>
+                                <li>Send your students to https://cups.erudiolabs.com/rooms/stargazing_101 and ask them to let you know how they are doing while the class is in progress.</li>
                                 <li>Keep the tab with the teacher interface open while you teach and glance at it periodically.</li>
                             </ol>
                         </div>
