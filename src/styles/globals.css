@@ -1,0 +1,30 @@
+/* * {
+  -webkit-font-smoothing: antialiased;
+} */
+
+/* @font-face {
+  font-family: hurme-sans;
+  src: url("/fonts/hurmegeosans-no2-400.woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: hurme-sans;
+  src: url("/fonts/hurmegeosans-no2-600.woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: hurme-sans;
+  src: url("/fonts/hurmegeosans-no2-700-1.woff2");
+  font-weight: 600;
+  font-display: swap;
+} */
+
+html,
+body {
+  font-family: "Raleway", sans-serif;
+  /* font-family: "hurme-sans", -apple-system, BlinkMacSystemFont, sans-serif; */
+}
