@@ -32,7 +32,7 @@ const Home: NextPage = () => {
               </div>
               <div className="text-gray-200 text-sm md:text-base mt-3"><span className="text-white font-semibold">Staying in sync</span> with your instructor<br className=" md:hidden" /> has never been easier.</div>
               <div className="text-gray-200 text-xs mt-3 mb-5">
-                Are you a teacher? <Link href="/rooms/create">
+                Are you a instructor? <Link href="/rooms/create">
                   <a className=" underline hover:text-gray-300" >
                     Click here to create your room!
                   </a>
