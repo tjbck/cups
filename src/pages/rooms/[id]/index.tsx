@@ -129,10 +129,9 @@ const Room: NextPage = ({ room: { id: roomId }, user: { id: userId } }: Props, {
                         <>
                             {socket && socketId ?
                                 <>
-                                    <Cups state={{ colour, setColour }} socket={socket} roomId={roomId} />
-                                    <div className='text-xs text-gray-400'>
-                                        Joined as {username}
-                                    </div>
+
+                                    <Cups state={{ colour, setColour }} socket={socket} roomId={roomId} username={username} />
+
                                 </> :
                                 <>
                                     <div className='pb-10'>

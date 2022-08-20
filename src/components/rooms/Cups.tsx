@@ -6,6 +6,7 @@ import smilingEmoji from '../../assets/images/smiling.png'
 import thinkingEmoji from '../../assets/images/thinking.png'
 import pensiveEmoji from '../../assets/images/pensive.png'
 import wavingEmoji from '../../assets/images/waving.png'
+import AskQuestion from './AskQuestion';
 
 
 type CupsProps = {
@@ -15,12 +16,16 @@ type CupsProps = {
     }
     socket: Socket
     roomId: string
+    username: string
 }
 
-const Cups = ({ state: { colour, setColour }, socket, roomId }: CupsProps) => {
+const Cups = ({ state: { colour, setColour }, socket, roomId, username }: CupsProps) => {
     return (
         <>
-            <div className="flex flex-col justify-center">
+            <div className="flex flex-col justify-center py-6">
+                <div className='text-xs text-gray-400'>
+                    Joined as {username}
+                </div>
                 <div className='hidden bg-red-400'></div>
                 <div className='hidden bg-green-400'></div>
                 <div className='hidden bg-yellow-400'></div>
@@ -143,7 +148,17 @@ const Cups = ({ state: { colour, setColour }, socket, roomId }: CupsProps) => {
                     </div>
                 </div>
 
+
+                {colour === 'red' && (
+                    <div className='mt-3'>
+                        <AskQuestion socket={socket} />
+                    </div>
+                )}
+
+
                 <div className='mt-3 text-xs text-gray-500'>room: {roomId} sid: {socket.id}</div>
+
+
             </div></>
     )
 }
