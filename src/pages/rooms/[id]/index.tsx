@@ -115,7 +115,7 @@ const Room: NextPage = ({ room: { id: roomId }, user: { id: userId } }: Props, {
                 <title>{`Fastcups | Room ${roomId}`}</title>
             </Head>
 
-            <div className={`flex flex-row justify-center min-h-screen ${!active ? 'bg-indigo-900' : 'bg-gray-50'}`}>
+            <div className={`flex flex-row justify-center min-h-screen ${!socketId ? 'bg-indigo-900' : 'bg-gray-50'}`}>
                 <div className="basis-11/12 flex flex-col max-w-md text-gray-600 my-auto pb-10">
 
                     {!active ?
