@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Socket } from "socket.io-client";
 
 import smilingEmoji from '../../assets/images/smiling.png'
@@ -9,13 +9,15 @@ import wavingEmoji from '../../assets/images/waving.png'
 
 
 type CupsProps = {
+    state: {
+        colour: string
+        setColour: React.Dispatch<React.SetStateAction<string>>
+    }
     socket: Socket
     roomId: string
 }
 
-const Cups = ({ socket, roomId }: CupsProps) => {
-    const [colour, setColour] = useState('')
-
+const Cups = ({ state: { colour, setColour }, socket, roomId }: CupsProps) => {
     return (
         <>
             <div className="flex flex-col justify-center">
@@ -86,14 +88,7 @@ const Cups = ({ socket, roomId }: CupsProps) => {
                             </>
                             }
                         </div>
-
                     </div>
-
-
-
-
-
-
                 </div>
 
                 <div className="flex flex-row justify-center w-full mt-4">

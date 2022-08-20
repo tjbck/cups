@@ -27,10 +27,10 @@ export async function getServerSideProps({ res, req, query }) {
     // const data = await res.json()
 
     console.log('rooms index')
-    let id = req.cookies.user_id
+    let id = req.cookies.userId
     if (!id) {
         id = uuidv4()
-        res.setHeader("set-cookie", cookie.serialize('user_id', id, {
+        res.setHeader("set-cookie", cookie.serialize('userId', id, {
             httpOnly: true
         }))
     }
@@ -61,92 +61,95 @@ type Props = {
 }
 
 
-const Room: NextPage = ({ room: { id: room_id }, user: { id: user_id } }: Props, { }) => {
-    const router = useRouter()
-    // const { id } = router.query
+const Room: NextPage = ({ room: { id: roomId }, user: { id: userId } }: Props, { }) => {
 
-    const [username, setUsername] = useState('')
     const [active, setActive] = useState(false)
+    const [username, setUsername] = useState('')
+
 
     const [socketId, setSocketId] = useState('')
-
+    const [colour, setColour] = useState('')
 
     useEffect(() => {
-        socket = io(`${server}`, { path: '/v1/ws/socket.io' })
+        if (active && username) {
+            socket = io(`${server}`, { path: '/v1/ws/socket.io' })
 
+            socket.on("connect", () => {
+                setColour('')
 
+                console.log('connect', socket.connected); // true
 
-        socket.on("connect", () => {
-            console.log('connect', socket.connected); // true
+                socket.emit('join-room', {
+                    room: roomId
+                })
+                socket.emit('set-username', {
+                    name: username
+                })
 
-            socket.emit('join-room', {
-                room: room_id
-            })
-            toast.success(`Successfully connected to Room ${room_id}`)
+                toast.success(`Successfully connected to Room ${roomId}`)
+                setSocketId(socket.id);
+            });
 
-            setSocketId(socket.id);
-        });
+            socket.on("change-colour", (arg) => {
+                console.log('change-colour', arg);
+                // ...
+            });
 
-        socket.on("change-colour", (arg) => {
-            console.log('change-colour', arg);
-            // ...
-        });
-
-        socket.on("close-socket", (arg) => {
-            if (arg.user_id == user_id && arg.sid != socket.id) {
-                console.log('New tab opened!')
+            socket.on("close-socket", (arg) => {
+                if (arg.userId == userId && arg.sid != socket.id) {
+                    console.log('New tab opened!')
+                    socket.close();
+                    setSocketId('')
+                }
+            });
+            return () => {
                 socket.close();
                 setSocketId('')
             }
-        });
-
-        return () => {
-            socket.close();
         }
-    }, [room_id, user_id])
+    }, [active, username, roomId, userId])
 
     return (
         <>
             <Head>
-                <title>{`Fastcups | Room ${room_id}`}</title>
+                <title>{`Fastcups | Room ${roomId}`}</title>
             </Head>
 
             <div className={`flex flex-row justify-center min-h-screen ${!active ? 'bg-indigo-900' : 'bg-gray-50'}`}>
                 <div className="basis-11/12 flex flex-col max-w-md text-gray-600 my-auto pb-10">
 
-                    {socket && socketId ?
+                    {!active ?
                         <>
-                            {!active ?
-                                <>
-                                    <SetUsername
-                                        state={{ username, setUsername }}
-                                        callback={() => {
-                                            socket.emit('set-username', {
-                                                name: username
-                                            })
-                                            setActive(true)
-                                        }} />
-                                </> :
-                                <>
-                                    <Cups socket={socket} roomId={room_id} />
-                                </>}
+                            <SetUsername
+                                state={{ username, setUsername }}
+                                callback={() => {
+                                    setActive(true)
+                                }} />
                         </> :
                         <>
-                            <div className='pb-10'>
-                                <div className='flex justify-center'>
-                                    <div
-                                        className=' w-56 h-56'
-                                        dangerouslySetInnerHTML={{
-                                            __html: `
+                            {socket && socketId ?
+                                <>
+                                    <Cups state={{ colour, setColour }} socket={socket} roomId={roomId} />
+                                    <div className='text-xs text-gray-400'>
+                                        Joined as {username}
+                                    </div>
+                                </> :
+                                <>
+                                    <div className='pb-10'>
+                                        <div className='flex justify-center'>
+                                            <div
+                                                className=' w-56 h-56'
+                                                dangerouslySetInnerHTML={{
+                                                    __html: `
                     <lottie-player src="https://assets10.lottiefiles.com/datafiles/VrzuKbt6gjYx7B4/data.json" background="transparent" speed="1" style="width: 100%; height: 100%" loop autoplay></lottie-player>
                     `
-                                        }} />
-
-                                </div>
-                                <div className=' font-semibold text-center text-xl text-white'>
-                                    Loading...
-                                </div>
-                            </div>
+                                                }} />
+                                        </div>
+                                        <div className=' font-semibold text-center text-xl text-white'>
+                                            Loading...
+                                        </div>
+                                    </div>
+                                </>}
                         </>}
                 </div>
             </div>
