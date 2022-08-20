@@ -12,6 +12,7 @@ export default function Document() {
                     name="description"
                     content="Fastcups allows you to stay in sync with your students while you teach."
                 />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
                 <link rel="icon" href="/favicon.png" />
             </Head>
             <body>
