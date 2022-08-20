@@ -68,7 +68,7 @@ const Home: NextPage = () => {
                         <input
                           type="text"
                           id="room-code"
-                          className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 disabled:text-gray-500 disabled:bg-gray-200 block w-full px-3 py-2.5 "
+                          className="bg-white border border-gray-300 text-gray-900 text-sm text-center rounded-lg focus:ring-blue-500 focus:border-blue-500 disabled:text-gray-500 disabled:bg-gray-200 block w-full px-3 py-2.5 "
                           placeholder="Room Code"
                           required
                           value={roomCodeValue}

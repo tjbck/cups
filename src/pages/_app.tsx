@@ -11,6 +11,7 @@ import Head from 'next/head';
 import '../styles/globals.css'
 import '../styles/tailwind.css'
 import 'tippy.js/dist/tippy.css'
+import Script from 'next/script';
 
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -23,6 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <Head>
       <title>Fastcups | Stay in sync with your students</title>
     </Head>
+    <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" />
     <Layout>
       <Component {...pageProps} />
     </Layout>
